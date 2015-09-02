@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<VBox fx:id="generalSettingsPane" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="200.0" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mary.train.your.ear.controller.settings.GeneralSettingsPaneController">
+	<children>
+		<Label prefHeight="17.0" prefWidth="170.0" text="PlayType" />
+		<RadioButton fx:id="rbMelodically" mnemonicParsing="false" onAction="#setMPlayType" selected="true" text="Melodically" />
+		<RadioButton fx:id="rbHarmonically" mnemonicParsing="false" onAction="#setHPlayType" text="Harmonically">
+			<VBox.margin>
+				<Insets bottom="20.0" />
+			</VBox.margin>
+		</RadioButton>
+		<Label prefHeight="17.0" prefWidth="170.0" text="Number of items in set" />
+		<Spinner fx:id="noOfItems" depthTest="DISABLE" editable="true" prefHeight="25.0" prefWidth="63.0">
+			<valueFactory>
+				<SpinnerValueFactory.IntegerSpinnerValueFactory max="10" min="1" />
+			</valueFactory>
+			<VBox.margin>
+				<Insets bottom="20.0" />
+			</VBox.margin>
+		</Spinner>
+      <Label text="Pause length" />
+      <Slider fx:id="pauseSlider" majorTickUnit="0.5" max="2.0" showTickLabels="true" showTickMarks="true" value="0.5">
+         <VBox.margin>
+            <Insets bottom="5.0" left="10.0" right="10.0" />
+         </VBox.margin>
+      </Slider>
+      <Label text="Tempo" />
+      <Slider fx:id="tempoSlider" blockIncrement="5.0" majorTickUnit="40.0" max="200.0" min="40.0" showTickLabels="true" showTickMarks="true" value="120.0">
+         <VBox.margin>
+            <Insets bottom="5.0" left="10.0" right="10.0" />
+         </VBox.margin>
+      </Slider>
+		<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="170.0" text="Range of lowest pitch" />
+		<VBox fx:id="rangeSliderPane" alignment="TOP_CENTER" prefWidth="170.0">
+			<VBox.margin>
+				<Insets bottom="20.0" />
+			</VBox.margin>
+		</VBox>
+      <CheckBox fx:id="randomInstrument" mnemonicParsing="false" onAction="#setRandomInstrument" selected="true" text="Random instrument" />
+		<Label prefHeight="17.0" prefWidth="170.0" text="Available instruments" />
+		<ListView fx:id="listView" prefHeight="200.0" prefWidth="140.0" />
+	</children>
+</VBox>

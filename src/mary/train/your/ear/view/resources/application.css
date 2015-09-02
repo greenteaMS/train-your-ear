@@ -1,0 +1,30 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+@import url("buttons.css");
+@import url("tab.css");
+@import url("listview.css");
+
+.titled-pane > .title > .arrow-button > .arrow{
+    -fx-shape: "?";
+}
+
+.titled-pane > .title {
+	-fx-background-color: white ;
+
+}
+
+.settingsPaneWithBackground{
+	-fx-background-color: white;
+}
+
+.accordion .titled-pane {
+    -fx-background-color: rgb(0.0,79.0,157.0);
+}
+
+.split-pane {
+	-fx-box-border: transparent;
+}
+
+.split-pane-divider {
+	-fx-border-width: 0;
+}

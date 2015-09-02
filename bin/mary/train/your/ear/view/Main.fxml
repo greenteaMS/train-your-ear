@@ -1,18 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="480.0" prefWidth="640.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
-   <children>
-      <SplitPane dividerPositions="0.7413793103448276" layoutX="-299.0" layoutY="-320.0" prefHeight="0.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-        </items>
-      </SplitPane>
-   </children>
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="768.0"
+	prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="mary.train.your.ear.controller.MainController">
+	<children>
+		<BorderPane AnchorPane.bottomAnchor="0.0"
+			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+			AnchorPane.topAnchor="0.0">
+			<center>
+				<SplitPane dividerPositions="0.75">
+					<items>
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="433.0"
+							prefWidth="481.0">
+							<children>
+								<SplitPane dividerPositions="0.8" orientation="VERTICAL"
+									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+									<items>
+										<TabPane fx:id="tasksTabPane" prefHeight="613.0"
+											prefWidth="762.0">
+											<tabs>
+												<Tab fx:id="intervalsTask" closable="false" text="Intervals">
+													<content>
+														<AnchorPane minHeight="0.0" minWidth="0.0"
+															prefHeight="180.0" prefWidth="200.0">
+															<fx:include fx:id="intervalsTaskPane" source="IntervalsTaskPane.fxml"
+																AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+																AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+														</AnchorPane>
+													</content>
+												</Tab>
+												<Tab fx:id="chordsTask" closable="false" text="Chords">
+													<content>
+														<AnchorPane minHeight="0.0" minWidth="0.0"
+															prefHeight="180.0" prefWidth="200.0">
+															<fx:include fx:id="chordTaskPane" source="ChordTaskPane.fxml"
+																AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+																AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+														</AnchorPane>
+													</content>
+												</Tab>
+												<Tab fx:id="scalesTask" closable="false" text="Scales">
+													<content>
+														<AnchorPane minHeight="0.0" minWidth="0.0"
+															prefHeight="180.0" prefWidth="200.0" />
+													</content>
+												</Tab>
+												<Tab fx:id="tunerTask" closable="false" text="Tuner">
+													<content>
+														<AnchorPane minHeight="0.0" minWidth="0.0"
+															prefHeight="180.0" prefWidth="200.0">
+															<fx:include fx:id="tunerTaskPane" source="TunerTaskPane.fxml"
+																AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+																AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+														</AnchorPane>
+													</content>
+												</Tab>
+											</tabs>
+										</TabPane>
+										<AnchorPane minHeight="0.0" prefHeight="150.0"
+											prefWidth="200.0">
+											<fx:include fx:id="playerPane" source="PlayerPane.fxml"
+												AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+												AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+										</AnchorPane>
+									</items>
+								</SplitPane>
+							</children>
+						</AnchorPane>
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0"
+							prefWidth="100.0">
+							<children>
+								<Accordion layoutX="-29.0" layoutY="202.0" prefHeight="478.0"
+									prefWidth="120.0" AnchorPane.bottomAnchor="0.0"
+									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+									AnchorPane.topAnchor="0.0">
+									<panes>
+										<TitledPane animated="false" text="General settings">
+											<content>
+												<AnchorPane minHeight="0.0" prefHeight="150.0"
+													prefWidth="200.0">
+													<fx:include fx:id="generalSettingsPane" source="GeneralSettingsPane.fxml"
+														AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+														AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+												</AnchorPane>
+											</content>
+										</TitledPane>
+										<TitledPane animated="false" text="Task settings">
+											<content>
+												<StackPane fx:id="taskSettings">
+													<children>
+														<AnchorPane fx:id="chordsSettingsWrapper"
+															minHeight="0.0" prefHeight="150.0" prefWidth="200.0"
+															styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css">
+															<fx:include fx:id="chordsSettingsPane" source="ChordsSettingsPane.fxml"
+																AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+																AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+														</AnchorPane>
+														<AnchorPane fx:id="intervalsSettingsWrapper"
+															minHeight="0.0" prefHeight="150.0" prefWidth="200.0"
+															styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css">
+															<fx:include fx:id="intervalsSettingsPane"
+																source="IntervalsSettingsPane.fxml"
+																AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+																AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+														</AnchorPane>
+													</children>
+												</StackPane>
+											</content>
+										</TitledPane>
+									</panes>
+								</Accordion>
+							</children>
+						</AnchorPane>
+					</items>
+				</SplitPane>
+			</center>
+			<top>
+				<MenuBar BorderPane.alignment="CENTER">
+					<menus>
+						<Menu mnemonicParsing="false" text="File">
+							<items>
+								<MenuItem mnemonicParsing="false" text="Close" />
+							</items>
+						</Menu>
+						<Menu mnemonicParsing="false" text="Edit">
+							<items>
+								<MenuItem mnemonicParsing="false" text="Delete" />
+							</items>
+						</Menu>
+						<Menu mnemonicParsing="false" text="Help">
+							<items>
+								<MenuItem mnemonicParsing="false" text="About" />
+							</items>
+						</Menu>
+					</menus>
+				</MenuBar>
+			</top>
+		</BorderPane>
+	</children>
 </AnchorPane>

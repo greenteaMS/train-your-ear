@@ -1,0 +1,183 @@
+package mary.train.your.ear.model.structures.dao;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.LinkedList;
+
+import org.jfugue.theory.Chord;
+import org.jfugue.theory.Intervals;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
+
+import mary.train.your.ear.model.structures.CustomChord;
+import mary.train.your.ear.model.structures.Interval;
+
+public class CustomChordDao {
+
+	private static final String CHORDS_FILENAME = "chords.xml";
+	private static final String CUSTOM_CHORDS_FILENAME = "customChords.xml";
+
+	private static HashMap<Integer, LinkedList<CustomChord>> defChords;
+	private static HashMap<Integer, LinkedList<CustomChord>> usersChords;
+
+	public static HashMap<Integer, LinkedList<CustomChord>> getDefaultChords() throws Exception {
+		defChords = loadChords(CHORDS_FILENAME);
+		System.out.println(defChords);
+		usersChords = loadChords(CUSTOM_CHORDS_FILENAME);
+		System.out.println(usersChords);
+		return mergeLists(defChords, usersChords);
+	}
+
+	private static HashMap<Integer, LinkedList<CustomChord>> mergeLists(
+			HashMap<Integer, LinkedList<CustomChord>> defChords,
+			HashMap<Integer, LinkedList<CustomChord>> usersChords) {
+		HashMap<Integer, LinkedList<CustomChord>> map = new HashMap<>();
+		defChords.forEach((key, list) -> {
+			map.put(key, list);
+		});
+		usersChords.forEach((key, list) -> {
+			list.forEach(c -> c.setCustom(true));
+			if (map.containsKey(key))
+				map.get(key).addAll(list);
+			else
+				map.put(key, list);
+		});
+		return map;
+	}
+
+	public static HashMap<Integer, LinkedList<CustomChord>> loadChords(String filename) throws Exception {
+		Serializer reader = new Persister();
+		File source = new File(filename);
+		if (!source.exists())
+			return new HashMap<>();
+		ChordsList example = reader.read(ChordsList.class, source);
+		HashMap<Integer, LinkedList<CustomChord>> chords = new HashMap<>();
+		chords.put(3, example.triads);
+		chords.put(4, example.tetrads);
+		chords.put(5, example.pentads);
+		chords.put(6, example.hexads);
+
+		return chords;
+	}
+
+	public static void saveChords(String filename, HashMap<Integer, LinkedList<CustomChord>> chords) throws Exception {
+		ChordsList list = new ChordsList();
+		chords.forEach((number, chordsList) -> {
+			chordsList.forEach(chord -> list.addChord(chord));
+		});
+		Serializer serializer = new Persister();
+		File file = new File(filename);
+
+		serializer.write(list, file);
+	}
+
+	public static void saveCustomChord(CustomChord cc) throws Exception {
+		System.out.println("save " + usersChords);
+		if (usersChords.containsKey(cc.getStructure().size() + 1))
+			usersChords.get(cc.getStructure().size() + 1).add(cc);
+		else {
+			LinkedList<CustomChord> list = new LinkedList<CustomChord>();
+			list.add(cc);
+			usersChords.put(cc.getStructure().size() + 1, list);
+		}
+		serializeChords(usersChords, CUSTOM_CHORDS_FILENAME);
+	}
+
+	public static CustomChord createCustomChord(String name, Intervals intervals, String hints, boolean hasInversions) {
+		CustomChord ch = new CustomChord();
+		ch.setName(name);
+		LinkedList<Interval> ints = new LinkedList<>();
+		for (int i = 1; i < intervals.toHalfstepArray().length; i++)
+			ints.add(Interval.find(intervals.toHalfstepArray()[i]));
+		ch.setStructure(ints);
+		ch.setHints(hints);
+		ch.setHasInversions(hasInversions);
+		return ch;
+	}
+
+	public static void removeCustomChord(CustomChord chord) throws Exception {
+		System.out.println(usersChords);
+		if (usersChords.containsKey(chord.getStructure().size() + 1)) {
+			usersChords.get(chord.getStructure().size() + 1).remove(chord);
+			serializeChords(usersChords, CUSTOM_CHORDS_FILENAME);
+		}
+
+	}
+
+	public static void updateChordHints(CustomChord chord) throws Exception {
+		int size = chord.getStructure().size() + 1;
+		if (chord.isCustom()) {
+			usersChords.get(size).forEach(l -> {
+				if (l.getName().equals(chord.getName())){
+					l.setHints(chord.getHints());
+				}
+			});
+			serializeChords(usersChords, CUSTOM_CHORDS_FILENAME);
+		} else {
+			defChords.get(size).forEach(l -> {
+				if (l.getName().equals(chord.getName())){
+					l.setHints(chord.getHints());
+				}
+			});
+			serializeChords(defChords, CHORDS_FILENAME);
+		}
+	}
+
+	private static void serializeChords(HashMap<Integer, LinkedList<CustomChord>> map, String fileName)
+			throws Exception {
+		ChordsList list = new ChordsList();
+		map.forEach((number, chordsList) -> {
+			chordsList.forEach(c -> list.addChord(c));
+		});
+		Serializer serializer = new Persister();
+
+		File file = new File(fileName);
+		serializer.write(list, file);
+	}
+
+	/*
+	 * public static void main(String[] args) throws Exception { ChordsList list
+	 * = new ChordsList(); Chord.chordMap.forEach((name, intervals) -> {
+	 * System.out.println(name + ": " + intervals);
+	 * list.addChord(createCustomChord(name, intervals, "", true)); });
+	 * Serializer serializer = new Persister(); File file = new
+	 * File("test.xml");
+	 *
+	 * serializer.write(list, file);
+	 *
+	 * }
+	 */
+}
+
+@Root
+class ChordsList {
+
+	@ElementList
+	LinkedList<CustomChord> triads = new LinkedList<>();
+	@ElementList
+	LinkedList<CustomChord> tetrads = new LinkedList<>();
+	@ElementList
+	LinkedList<CustomChord> pentads = new LinkedList<>();
+	@ElementList
+	LinkedList<CustomChord> hexads = new LinkedList<>();
+
+	void addChord(CustomChord chord) {
+		switch (chord.getStructure().size() + 1) {
+		case 3:
+			triads.add(chord);
+			break;
+		case 4:
+			tetrads.add(chord);
+			break;
+		case 5:
+			pentads.add(chord);
+			break;
+		case 6:
+			hexads.add(chord);
+			break;
+		}
+	}
+
+}
