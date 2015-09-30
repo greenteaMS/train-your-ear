@@ -7,31 +7,31 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<VBox fx:id="intervalsSettingsPane" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="200.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mary.train.your.ear.controller.settings.IntervalsSettingsPaneController">
+<VBox fx:id="intervalsSettingsPane" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="200.0" spacing="10.0" styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mary.train.your.ear.controller.settings.IntervalsSettingsPaneController">
    <children>
-      <Label text="Available intervals">
+      <Label text="Dostępne interwały">
          <VBox.margin>
             <Insets left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </Label>
-      <ScrollPane VBox.vgrow="SOMETIMES">
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css" VBox.vgrow="SOMETIMES">
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
          <content>
       
-            <VBox fx:id="listOfButtons" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="190.0" spacing="5.0" />
+            <VBox fx:id="listOfButtons" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="190.0" spacing="5.0" styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css" />
          </content>
          <padding>
             <Insets bottom="10.0" top="10.0" />
          </padding>
       </ScrollPane>
-      <CheckBox fx:id="simpleIntervals" mnemonicParsing="false" onAction="#setSimpleSetting" prefWidth="100.0" selected="true" text="Simple">
+      <CheckBox fx:id="simpleIntervals" mnemonicParsing="false" onAction="#setSimpleSetting" prefWidth="100.0" selected="true" text="Proste">
          <VBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </CheckBox>
-      <CheckBox fx:id="complexIntervals" mnemonicParsing="false" onAction="#setComplexSetting" prefWidth="100.0" text="Compound">
+      <CheckBox fx:id="complexIntervals" mnemonicParsing="false" onAction="#setComplexSetting" prefWidth="100.0" text="Złożone">
          <VBox.margin>
             <Insets bottom="20.0" left="10.0" right="10.0" />
          </VBox.margin>

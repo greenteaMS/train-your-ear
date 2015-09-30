@@ -1,0 +1,13 @@
+
+.tunerLabel{
+	-fx-font-size: 14.0px;
+	-fx-background-color: rgb(205,245,146);
+}
+
+.label:correctAnswerCell{
+	-fx-background-color: rgb(205.0,245.0,146.0);
+}
+
+.label:wrongAnswerCell{
+	-fx-background-color: rgb(255.0,128.0,128.0) !important;
+}

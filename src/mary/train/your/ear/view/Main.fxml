@@ -7,110 +7,81 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="768.0"
-	prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="mary.train.your.ear.controller.MainController">
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mary.train.your.ear.controller.MainController">
 	<children>
-		<BorderPane AnchorPane.bottomAnchor="0.0"
-			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-			AnchorPane.topAnchor="0.0">
+		<BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<center>
 				<SplitPane dividerPositions="0.75">
 					<items>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="433.0"
-							prefWidth="481.0">
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="433.0" prefWidth="481.0">
 							<children>
-								<SplitPane dividerPositions="0.8" orientation="VERTICAL"
-									AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-									AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+								<SplitPane dividerPositions="0.8457374830852503" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 									<items>
-										<TabPane fx:id="tasksTabPane" prefHeight="613.0"
-											prefWidth="762.0">
+										<TabPane fx:id="tasksTabPane" prefHeight="613.0" prefWidth="762.0" styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css">
 											<tabs>
-												<Tab fx:id="intervalsTask" closable="false" text="Intervals">
+												<Tab fx:id="intervalsTask" closable="false" text="Interwały">
 													<content>
-														<AnchorPane minHeight="0.0" minWidth="0.0"
-															prefHeight="180.0" prefWidth="200.0">
-															<fx:include fx:id="intervalsTaskPane" source="IntervalsTaskPane.fxml"
-																AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-																AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+														<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+															<fx:include fx:id="intervalsTaskPane" source="IntervalsTaskPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 														</AnchorPane>
 													</content>
 												</Tab>
-												<Tab fx:id="chordsTask" closable="false" text="Chords">
+												<Tab fx:id="chordsTask" closable="false" text="Akordy">
 													<content>
-														<AnchorPane minHeight="0.0" minWidth="0.0"
-															prefHeight="180.0" prefWidth="200.0">
-															<fx:include fx:id="chordTaskPane" source="ChordTaskPane.fxml"
-																AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-																AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+														<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+															<fx:include fx:id="chordTaskPane" source="ChordTaskPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 														</AnchorPane>
 													</content>
 												</Tab>
-												<Tab fx:id="scalesTask" closable="false" text="Scales">
+												<Tab fx:id="comparatorTask" closable="false" text="Porównywanie interwałów">
 													<content>
-														<AnchorPane minHeight="0.0" minWidth="0.0"
-															prefHeight="180.0" prefWidth="200.0" />
+														<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+															<fx:include fx:id="intervalComparatorTaskPane" source="IntervalComparatorTaskPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+														</AnchorPane>
 													</content>
 												</Tab>
 												<Tab fx:id="tunerTask" closable="false" text="Tuner">
 													<content>
-														<AnchorPane minHeight="0.0" minWidth="0.0"
-															prefHeight="180.0" prefWidth="200.0">
-															<fx:include fx:id="tunerTaskPane" source="TunerTaskPane.fxml"
-																AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-																AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+														<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+															<fx:include fx:id="tunerTaskPane" source="TunerTaskPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 														</AnchorPane>
 													</content>
 												</Tab>
 											</tabs>
 										</TabPane>
-										<AnchorPane minHeight="0.0" prefHeight="150.0"
-											prefWidth="200.0">
-											<fx:include fx:id="playerPane" source="PlayerPane.fxml"
-												AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-												AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+										<AnchorPane minHeight="0.0" prefHeight="120.0" prefWidth="200.0">
+											<fx:include fx:id="playerPane" source="PlayerPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 										</AnchorPane>
 									</items>
 								</SplitPane>
 							</children>
 						</AnchorPane>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0"
-							prefWidth="100.0">
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
 							<children>
-								<Accordion layoutX="-29.0" layoutY="202.0" prefHeight="478.0"
-									prefWidth="120.0" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0">
+								<Accordion layoutX="-29.0" layoutY="202.0" prefHeight="478.0" prefWidth="120.0" styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 									<panes>
-										<TitledPane animated="false" text="General settings">
+										<TitledPane animated="false" text="Ustawienia ogólne">
 											<content>
-												<AnchorPane minHeight="0.0" prefHeight="150.0"
-													prefWidth="200.0">
-													<fx:include fx:id="generalSettingsPane" source="GeneralSettingsPane.fxml"
-														AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-														AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+												<AnchorPane minHeight="0.0" prefHeight="150.0" prefWidth="200.0">
+													<fx:include fx:id="generalSettingsPane" source="GeneralSettingsPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 												</AnchorPane>
 											</content>
 										</TitledPane>
-										<TitledPane animated="false" text="Task settings">
+										<TitledPane animated="false" text="Parametry zadania">
 											<content>
 												<StackPane fx:id="taskSettings">
 													<children>
-														<AnchorPane fx:id="chordsSettingsWrapper"
-															minHeight="0.0" prefHeight="150.0" prefWidth="200.0"
-															styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css">
-															<fx:include fx:id="chordsSettingsPane" source="ChordsSettingsPane.fxml"
-																AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-																AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+														<AnchorPane fx:id="chordsSettingsWrapper" minHeight="0.0" prefHeight="150.0" prefWidth="200.0" styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css">
+															<fx:include fx:id="chordsSettingsPane" source="ChordsSettingsPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 														</AnchorPane>
-														<AnchorPane fx:id="intervalsSettingsWrapper"
-															minHeight="0.0" prefHeight="150.0" prefWidth="200.0"
-															styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css">
-															<fx:include fx:id="intervalsSettingsPane"
-																source="IntervalsSettingsPane.fxml"
-																AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-																AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+														<AnchorPane fx:id="tunerSettingsWrapper" minHeight="0.0" prefHeight="150.0" prefWidth="200.0" styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css">
+															<fx:include fx:id="tunerSettingsPane" source="TunerSettingsPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+														</AnchorPane>
+														<AnchorPane fx:id="intervalComparatorSettingsWrapper" minHeight="0.0" prefHeight="150.0" prefWidth="200.0" styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css">
+															<fx:include fx:id="intervalComparatorSettingsPane" source="IntervalComparatorSettingsPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+														</AnchorPane>
+														<AnchorPane fx:id="intervalsSettingsWrapper" minHeight="0.0" prefHeight="150.0" prefWidth="200.0" styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css">
+															<fx:include fx:id="intervalsSettingsPane" source="IntervalsSettingsPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 														</AnchorPane>
 													</children>
 												</StackPane>
@@ -124,25 +95,44 @@
 				</SplitPane>
 			</center>
 			<top>
-				<MenuBar BorderPane.alignment="CENTER">
-					<menus>
-						<Menu mnemonicParsing="false" text="File">
-							<items>
-								<MenuItem mnemonicParsing="false" text="Close" />
-							</items>
-						</Menu>
-						<Menu mnemonicParsing="false" text="Edit">
-							<items>
-								<MenuItem mnemonicParsing="false" text="Delete" />
-							</items>
-						</Menu>
-						<Menu mnemonicParsing="false" text="Help">
-							<items>
-								<MenuItem mnemonicParsing="false" text="About" />
-							</items>
-						</Menu>
-					</menus>
-				</MenuBar>
+            <BorderPane styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css" BorderPane.alignment="CENTER">
+               <left>
+						<MenuBar fx:id="menuBar" stylesheets="@resources/application.css" BorderPane.alignment="CENTER">
+							<menus>
+								<Menu mnemonicParsing="false" text="Plik">
+									<items>
+                              <MenuItem mnemonicParsing="false" onAction="#showManageUsers" text="Zarządzaj użytkownikami" />
+										<MenuItem fx:id="closeMenu" mnemonicParsing="false" onAction="#close" text="Zakończ program" />
+									</items>
+								</Menu>
+								<Menu mnemonicParsing="false" text="Statystyki">
+									<items>
+										<MenuItem fx:id="showCurrentUserStatistics" mnemonicParsing="false" onAction="#showCurrentUserStatistics" text="Statystyki aktywnego użytkownika" />
+										<MenuItem fx:id="clearStatsMenu" mnemonicParsing="false" onAction="#clearCurrentStatistics" text="Wyczyść statystyki" />
+										<MenuItem fx:id="statisticsMenu" mnemonicParsing="false" onAction="#showStatisticsSummary" text="Statystyki..." visible="false" />
+									</items>
+								</Menu>
+								<Menu mnemonicParsing="false" text="Pomoc">
+									<items>
+										<MenuItem fx:id="userGuideMenu" mnemonicParsing="false" onAction="#showUserGuide" text="Instrukcja użytkownika" />
+										<MenuItem fx:id="aboutMenu" mnemonicParsing="false" onAction="#showAbout" text="O programie" />
+									</items>
+								</Menu>
+							</menus>
+                     <styleClass>
+                        <String fx:value="settingsPaneWithBackground" />
+                        <String fx:value="menuBar" />
+                     </styleClass>
+						</MenuBar>
+               </left>
+               <right>
+						<ComboBox fx:id="userProfile" onAction="#chooseUser" prefWidth="180.0" styleClass="userComboBox" stylesheets="@resources/application.css" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets right="30.0" />
+                     </BorderPane.margin>
+						</ComboBox>
+               </right>
+            </BorderPane>
 			</top>
 		</BorderPane>
 	</children>

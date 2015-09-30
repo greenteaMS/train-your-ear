@@ -1,58 +1,87 @@
+/*
+ * @author Maria Sotor
+ * @date September 2015
+ * @version 1.2
+ */
 package mary.train.your.ear.controller.dialog;
 
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
-import abc.notation.Tune;
-import abc.parser.TuneParser;
-import abc.ui.swing.JScoreComponent;
+import org.apache.logging.log4j.LogManager;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingNode;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import mary.train.your.ear.controller.AbstractController;
-import mary.train.your.ear.model.DataManager;
-import mary.train.your.ear.model.TaskPlayer;
+import mary.train.your.ear.StringConstants;
+import mary.train.your.ear.model.StructuresManager;
+import mary.train.your.ear.model.player.TaskPlayer;
 import mary.train.your.ear.model.settings.ChordsSettings;
 import mary.train.your.ear.model.structures.CustomChord;
 import mary.train.your.ear.model.structures.Interval;
 
-public class AddChordPopupController extends AbstractController {
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AddChordPopupController.
+ */
+public class AddChordPopupController extends AbstractPopupController {
 
+	/** The try new chord. */
 	@FXML
 	private Button tryNewChord;
+
+	/** The create new chord. */
 	@FXML
 	private Button createNewChord;
+
+	/** The available intervals list. */
 	@FXML
 	private ListView<String> availableIntervalsList;
+
+	/** The selected intervals list. */
 	@FXML
 	private ListView<String> selectedIntervalsList;
 
+	/** The intervals list. */
 	private ObservableList<String> intervalsList = FXCollections.observableArrayList();
+
+	/** The selected list. */
 	private ObservableList<String> selectedList = FXCollections.observableArrayList();
 
+	/** The chord name. */
 	@FXML
-	SwingNode scoreNode;
+	private TextField chordName;
 
-	JScoreComponent scoreUI = new JScoreComponent();
+	/** The status label. */
 	@FXML
-	TextField chordName;
-	@FXML
-	Label statusLabel;
-	@FXML
-	TextField chordHints;
+	private Label statusLabel;
 
+	/** The chord hints. */
+	@FXML
+	private TextField chordHints;
+
+	/**
+	 * Instantiates a new adds the chord popup controller.
+	 */
+	public AddChordPopupController() {
+		LOG = LogManager.getLogger(getClass());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * mary.train.your.ear.controller.AbstractController#initialize(java.net.
+	 * URL, java.util.ResourceBundle)
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		logInitializing(getClass());
 		intervalsList = FXCollections.observableArrayList();
 		selectedList = FXCollections.observableArrayList();
 
@@ -72,42 +101,28 @@ public class AddChordPopupController extends AbstractController {
 
 			if (handler.getClickCount() == 2) {
 				String value = selectedIntervalsList.getSelectionModel().getSelectedItem();
-				System.out.println(value);
 				selectedList.remove(value);
 			}
 		});
-		scoreNode.resize(300, 300);
-		//scoreUI.setTune(tune);
-		scoreNode.setContent(scoreUI);
-		scoreUI.validate();
 		selectedIntervalsList.setItems(selectedList);
-
+		logInit(getClass());
 	}
 
-	// TODO
-	private void updatePreview(String tuneAsString) {
-		System.out.println("updatePreview " + tuneAsString);
-		Tune tune = new TuneParser().parse(tuneAsString);
-		scoreUI.removeAll();
-		scoreUI.setTune(tune);
-		scoreUI.validate();
-
-	}
-
+	/**
+	 * Play new chord.
+	 */
 	@FXML
 	public void playNewChord() {
 		LinkedList<Interval> structure = prepareChord();
-		/*String abcNotation = */TaskPlayer.getInstance().tryNewChord(structure);
-		//updatePreview(abcNotation);
+		TaskPlayer.getInstance().tryNewChord(structure);
+
 	}
 
-	@FXML
-	public void closeWindow(ActionEvent event) {
-		Node source = (Node) event.getSource();
-		Stage stage = (Stage) source.getScene().getWindow();
-		stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
-	}
-
+	/**
+	 * Prepare chord.
+	 *
+	 * @return the linked list
+	 */
 	private LinkedList<Interval> prepareChord() {
 		LinkedList<Interval> structure = new LinkedList<>();
 		acc = 0;
@@ -119,10 +134,12 @@ public class AddChordPopupController extends AbstractController {
 			if (i != null)
 				structure.add(i);
 		}
-		System.out.println(structure);
 		return structure;
 	}
 
+	/**
+	 * Creates the new chord.
+	 */
 	@FXML
 	public void createNewChord() {
 		LinkedList<Interval> structure = prepareChord();
@@ -133,41 +150,48 @@ public class AddChordPopupController extends AbstractController {
 		newChord.setStructure(structure);
 		newChord.setHasInversions(false);
 		newChord.setHints(chordHints.getText());
-		boolean success = DataManager.createChord(newChord);
-		System.out.println(success);
+		boolean success = StructuresManager.createChord(newChord);
 		if (success)
-			statusLabel.setText("New chord added");
+			statusLabel.setText(StringConstants.SL_NEW_CHORD_ADDED);
 		else
-			statusLabel.setText("Adding new chord failed");
+			statusLabel.setText(StringConstants.SL_ADDING_NEW_CHORD_FAILED);
 	}
 
-	boolean exists = false;
-	int acc = 0;
+	/** The 'chord already exists' flag. */
+	private boolean exists = false;
 
+	/** The accelerator variable. */
+	private int acc = 0;
+
+	/**
+	 * Validate chord.
+	 *
+	 * @param structure
+	 *            the structure
+	 * @return true, if successful
+	 */
 	private boolean validateChord(LinkedList<Interval> structure) {
 		if (chordName.getText().toString().equals("")) {
-			statusLabel.setText("Fill chord name");
+			statusLabel.setText(StringConstants.SL_FILL_CHORD_NAME);
 			return false;
 		}
 		if (selectedList.size() < 2) {
-			statusLabel.setText("There must be at least two selected intervals");
+			statusLabel.setText(StringConstants.SL_TWO_SELECTED_INTERVALS);
 			return false;
 		}
 		if (ChordsSettings.getSettings().getChordsAvailability().keySet().contains(chordName.getText())) {
-			statusLabel.setText("Chord with such a name already exists");
+			statusLabel.setText(StringConstants.SL_CHORD_ALREADY_EXISTS);
 			return false;
 		}
 		exists = false;
-		System.out.println(structure);
 		ChordsSettings.getSettings().getChords(selectedList.size() + 1).forEach(chord -> {
 
 			if (chord.getStructure().equals(structure)) {
 				exists = true;
-				System.out.println(chord.getStructure());
 			}
 		});
 		if (exists) {
-			statusLabel.setText("Chord with such a structure already exists");
+			statusLabel.setText(StringConstants.SL_CHORD_STRUCTURE_ALREADY_EXISTS);
 			return false;
 		}
 		return true;

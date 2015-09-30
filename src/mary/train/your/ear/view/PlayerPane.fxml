@@ -7,22 +7,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<VBox fx:id="playerPane" alignment="TOP_RIGHT" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mary.train.your.ear.controller.PlayerPaneController">
+<VBox fx:id="playerPane" alignment="TOP_RIGHT" styleClass="settingsPaneWithBackground" stylesheets="@resources/application.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mary.train.your.ear.controller.PlayerPaneController">
    <children>
-      <HBox alignment="CENTER" prefHeight="150.0" prefWidth="600.0" spacing="50.0">
+      <HBox alignment="CENTER" prefHeight="120.0" prefWidth="600.0" spacing="50.0">
       	<children>
-      		<Button fx:id="playButton" mnemonicParsing="false" styleClass="playerPaneButton" stylesheets="@../application.css" text="Play" />
-      		<Button fx:id="repeatButton" mnemonicParsing="false" styleClass="playerPaneButton" stylesheets="@../application.css" text="Repeat" />
-      		<Button fx:id="showAnswerButton" mnemonicParsing="false" styleClass="playerPaneButton" stylesheets="@../application.css" text="Show answer" />
+      		<Button fx:id="playButton" mnemonicParsing="false" onAction="#play" styleClass="playerPaneButton" stylesheets="@../application.css" text="Nowy przykład" />
+      		<Button fx:id="repeatButton" mnemonicParsing="false" onAction="#repeat" styleClass="playerPaneButton" stylesheets="@../application.css" text="Powtórz" />
+      		<Button fx:id="showAnswerButton" mnemonicParsing="false" styleClass="playerPaneButton" stylesheets="@../application.css" text="Pokaż odpowiedź" />
       	</children>
       	<padding>
-      		<Insets bottom="10.0" left="40.0" right="40.0" top="40.0" />
+      		<Insets bottom="10.0" left="40.0" right="40.0" top="10.0" />
       	</padding>
       </HBox>
-      <CheckBox fx:id="autoPlay" mnemonicParsing="false" onAction="#updateAutoPlaySetting" text="Play / repeat item on answer automatically" visible="false">
-         <VBox.margin>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-         </VBox.margin>
-      </CheckBox>
    </children>
 </VBox>

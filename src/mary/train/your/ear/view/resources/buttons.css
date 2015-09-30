@@ -1,60 +1,123 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
-
-.button {
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */.button {
 	-fx-background-radius: 0.0;
 	-fx-focus-color: transparent;
-}
-
-.playerPaneButton{
-	-fx-background-color: rgb(0,79,157);
-    -fx-text-fill: white;
-    -fx-font-size: 16.0px;
-    -fx-padding: 10.0 20.0 10.0 20.0;
-    -fx-background-radius: 0.0;
-    -fx-min-width: 120.0px;
-    -fx-min-height: 40.0px
-}
-
-.addChordButton{
+}.playerPaneButton {
+	-fx-background-color: rgb(0.0,79.0,157.0);
+	-fx-text-fill: white;
+	-fx-font-size: 16.0px;
+	-fx-padding: 10.0 20.0 10.0 20.0;
+	-fx-background-radius: 0.0;
+	-fx-min-width: 120.0px;
+	-fx-min-height: 40.0px
+}.addChordButton {
 	-fx-min-width: 100.0px;
 	-fx-background-color: rgb(0.0,79.0,157.0);
 	-fx-text-fill: white;
-}
-
-.addChordButton:hover, .playerPaneButton:hover{
-	-fx-background-color:rgb(204,230,255);
+}.tunerButton {
+	-fx-min-width: 60.0px;
+	-fx-background-color: rgb(0.0,79.0,157.0);
+	-fx-text-fill: white;
+}.addChordButton:hover,.playerPaneButton:hover,.tunerButton:hover {
+	-fx-background-color:rgb(204.0,230.0,255.0);
 	-fx-text-fill: black;
-}
-
-.intervalToggle {
-	-fx-min-width: 100.0px;
+}.intervalToggle {
+	-fx-min-width: 140.0px;
+	-fx-min-height: 28px;
 	-fx-background-color: rgb(205.0,245.0,146.0);
 	-fx-background-radius: 0.0;
-}
-
-.intervalToggleRed {
+}.intervalToggleRed {
 	-fx-background-color: rgb(255.0,128.0,128.0) !important;
-}
-
-.littleToggle {
+}.littleToggle {
 	-fx-min-width: 30.0px;
 	-fx-background-color: rgb(205.0,245.0,146.0);
 	-fx-background-radius: 0.0;
+}.statisticsToggle {
+	-fx-min-width: 100.0px;
+	-fx-background-color: rgb(0.0,79.0,157.0);
+	-fx-text-fill: white;
+	-fx-background-radius: 0.0;
+}.intervalButton {
+	-fx-background-color:rgb(0, 79, 157);
+	-fx-background-insets: 0.0,1.0,2.0,0.0;
+	-fx-text-fill: white;
+	-fx-font-family: "Candara";
+	-fx-text-fill: linear-gradient(white, #d0d0d0);
+	-fx-font-size: 14.0px;
+	-fx-padding: 10.0 20.0 10.0 20.0;
+	-fx-min-width: 150.0px;
+	-fx-background-radius: 0.0;
+	-fx-cursor: hand;
+}
+.chordButton {
+	-fx-background-color: rgb(0, 79, 157);
+	-fx-background-insets: 0.0,1.0,2.0,0.0;
+	-fx-text-fill: white;
+	-fx-font-family: "Candara";
+	-fx-text-fill: linear-gradient(white, #d0d0d0);
+	-fx-font-size: 14.0px;
+	-fx-padding: 10.0 20.0 10.0 20.0;
+	-fx-min-width: 240.0px;
+	-fx-background-radius: 0.0;
+	-fx-cursor: hand;
+}
+.chordButton:hover, .intervalButton:hover{
+	-fx-background-color: rgb(205.0,245.0,146.0);
+	-fx-text-fill: black;
+}
+.firstLargerButton {
+	-fx-background-image: url('/images/larger.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-background-size: cover, auto;
+	-fx-cursor: hand;
+}.secondLargerButton {
+	-fx-background-image: url('/images/smaller.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-background-size: cover, auto;
+	-fx-cursor: hand;
+}.theSameButton {
+	-fx-background-image: url('/images/same.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-background-size: cover, auto;
+	-fx-cursor: hand;
+}
+.firstCorrect {
+	-fx-background-image: url('/images/largerCorrect.png');
 }
 
-.intervalButton {
-	-fx-background-color:
-        #090a0c,
-        linear-gradient(#38424b 0.0%, #1f2429 20.0%, #191d22 100.0%),
-        linear-gradient(#20262b, #191d22),
-        radial-gradient(center 50.0% 0.0%, radius 100.0%, rgba(114.0,131.0,148.0,0.9), rgba(255.0,255.0,255.0,0.0));
+.sameCorrect{
+	-fx-background-image: url('/images/sameCorrect.png');
+}
 
-    -fx-background-insets: 0.0,1.0,2.0,0.0;
-    -fx-text-fill: white;
-    -fx-font-family: "Candara";
-    -fx-text-fill: linear-gradient(white, #d0d0d0);
-    -fx-font-size: 14.0px;
-    -fx-padding: 10.0 20.0 10.0 20.0;
-    -fx-min-width: 150.0px;
-    -fx-background-radius: 0.0;
+.secondCorrect{
+	-fx-background-image: url('/images/smallerCorrect.png');
+}
+.taskInfoButton{
+	-fx-background-image: url('/images/questionMark.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-background-size: cover, auto;
+	-fx-cursor: hand;
+}
+.chordToggle {
+	-fx-min-width: 210.0px;
+	-fx-min-height: 28px;
+	-fx-background-color: rgb(205.0,245.0,146.0);
+	-fx-background-radius: 0.0;
+}
+.speakerButton {
+	-fx-min-width: 28px;
+	-fx-min-height: 28px;
+	-fx-background-image: url('/images/speaker.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-background-size: cover, auto;
+	-fx-cursor: hand;
+	-fx-opacity: .4;
+}
+
+.speakerButton:hover{
+	-fx-opacity: 1;
 }

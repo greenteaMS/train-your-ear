@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root alignment="TOP_CENTER" type="HBox"
+	xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+	<padding>
+		<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+	</padding>
+	<children>
+
+		<Label fx:id="inversionName" prefHeight="20.0" prefWidth="150.0"
+			text="test" />
+		<Label fx:id="inversionRatio" prefHeight="20.0" prefWidth="60.0"
+			text="Label" />
+
+	</children>
+</fx:root>

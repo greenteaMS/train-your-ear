@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.embed.swing.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox alignment="TOP_RIGHT" styleClass="settingsPaneWithBackground" stylesheets="@../resources/application.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mary.train.your.ear.controller.dialog.ManageUsersPopupController">
+	<children>
+		<HBox spacing="10.0">
+			<children>
+				<VBox alignment="CENTER">
+					<children>
+						<ListView fx:id="usersListView" minHeight="100.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0">
+							<VBox.margin>
+								<Insets bottom="10.0" />
+							</VBox.margin>
+						</ListView>
+						<Button mnemonicParsing="false" onAction="#deleteSelected" styleClass="addChordButton" stylesheets="@../resources/buttons.css" text="Usuń" />
+					</children>
+				</VBox>
+				<VBox alignment="TOP_CENTER" prefHeight="120.0" prefWidth="200.0" spacing="5.0" styleClass="settingsPaneWithBackground" stylesheets="@../resources/application.css">
+					<children>
+						<Label text="Dodaj nowego użytkownika">
+							<VBox.margin>
+								<Insets bottom="10.0" />
+							</VBox.margin>
+						</Label>
+						<TextField fx:id="userName" maxWidth="150.0" minWidth="100.0" prefWidth="100.0" promptText="Nazwa użytkownika">
+							<VBox.margin>
+								<Insets bottom="20.0" />
+							</VBox.margin>
+						</TextField>
+						<Button fx:id="addUserButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#addUser" styleClass="addChordButton" stylesheets="@../resources/buttons.css" text="Utwórz" textAlignment="CENTER">
+							<VBox.margin>
+								<Insets />
+							</VBox.margin>
+						</Button>
+      				<Button mnemonicParsing="false" onAction="#closeWindow" styleClass="addChordButton" stylesheets="@../resources/buttons.css" text="Zamknij">
+                     <VBox.margin>
+                        <Insets top="78.0" />
+                     </VBox.margin>
+                  </Button>
+					</children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+				</VBox>
+			</children>
+			<padding>
+				<Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+			</padding>
+		</HBox>
+		<HBox>
+			<VBox.margin>
+				<Insets />
+			</VBox.margin>
+			<children>
+				<Label fx:id="statusLabel" alignment="CENTER" prefHeight="25.0" prefWidth="321.0" />
+			</children>
+		</HBox>
+	</children>
+	<padding>
+		<Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+	</padding>
+</VBox>

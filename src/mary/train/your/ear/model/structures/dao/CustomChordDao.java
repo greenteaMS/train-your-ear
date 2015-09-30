@@ -1,35 +1,71 @@
+/*
+ * @author Maria Sotor
+ * @date September 2015
+ * @version 1.2
+ */
 package mary.train.your.ear.model.structures.dao;
 
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import org.jfugue.theory.Chord;
-import org.jfugue.theory.Intervals;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import mary.train.your.ear.model.structures.CustomChord;
-import mary.train.your.ear.model.structures.Interval;
 
+// TODO: Auto-generated Javadoc
+/**
+ * CustomChordDao class is responsible for managing chords - loading default
+ * chords, adding, removing, updating custom chords.
+ */
 public class CustomChordDao {
 
-	private static final String CHORDS_FILENAME = "chords.xml";
-	private static final String CUSTOM_CHORDS_FILENAME = "customChords.xml";
+	/** The Constant LOG. */
+	private static final Logger LOG = LogManager.getLogger(CustomChordDao.class);
 
+	/** The Constant CHORDS_FILENAME. */
+	private static final String CHORDS_FILENAME = "./files/chords.xml";
+
+	/** The Constant CUSTOM_CHORDS_FILENAME. */
+	private static final String CUSTOM_CHORDS_FILENAME = "./files/customChords.xml";
+
+	/** The def chords. */
 	private static HashMap<Integer, LinkedList<CustomChord>> defChords;
+
+	/** The users chords. */
 	private static HashMap<Integer, LinkedList<CustomChord>> usersChords;
 
-	public static HashMap<Integer, LinkedList<CustomChord>> getDefaultChords() throws Exception {
+	/**
+	 * Gets the default chords.
+	 *
+	 * @return the default chords
+	 * @throws Exception
+	 *             the exception
+	 */
+	public static HashMap<Integer, LinkedList<CustomChord>> getAllChords() throws Exception {
 		defChords = loadChords(CHORDS_FILENAME);
-		System.out.println(defChords);
 		usersChords = loadChords(CUSTOM_CHORDS_FILENAME);
-		System.out.println(usersChords);
 		return mergeLists(defChords, usersChords);
 	}
 
+	/**
+	 * Merge lists.
+	 *
+	 * @param defChords
+	 *            the def chords
+	 * @param usersChords
+	 *            the users chords
+	 * @return the hash map
+	 */
 	private static HashMap<Integer, LinkedList<CustomChord>> mergeLists(
 			HashMap<Integer, LinkedList<CustomChord>> defChords,
 			HashMap<Integer, LinkedList<CustomChord>> usersChords) {
@@ -47,12 +83,29 @@ public class CustomChordDao {
 		return map;
 	}
 
-	public static HashMap<Integer, LinkedList<CustomChord>> loadChords(String filename) throws Exception {
+	/**
+	 * Load chords.
+	 *
+	 * @param filename
+	 *            the filename
+	 * @return the hash map
+	 * @throws Exception
+	 *             the exception
+	 */
+	private static HashMap<Integer, LinkedList<CustomChord>> loadChords(String filename) throws Exception {
+
 		Serializer reader = new Persister();
-		File source = new File(filename);
-		if (!source.exists())
-			return new HashMap<>();
-		ChordsList example = reader.read(ChordsList.class, source);
+		InputStream source;
+		ChordsList example;
+		try {
+			source = new FileInputStream(filename);
+			example = reader.read(ChordsList.class, source);
+			source.close();
+		} catch (FileNotFoundException e) {
+			LOG.error("loadChords for file " + filename + " failed\n", e);
+			example = new ChordsList();
+		}
+
 		HashMap<Integer, LinkedList<CustomChord>> chords = new HashMap<>();
 		chords.put(3, example.triads);
 		chords.put(4, example.tetrads);
@@ -62,19 +115,38 @@ public class CustomChordDao {
 		return chords;
 	}
 
-	public static void saveChords(String filename, HashMap<Integer, LinkedList<CustomChord>> chords) throws Exception {
+	/**
+	 * Save chords.
+	 *
+	 * @param filename
+	 *            the filename
+	 * @param chords
+	 *            the chords
+	 * @throws Exception
+	 *             the exception
+	 *//*
+	@SuppressWarnings("unused")
+	private static void saveChords(String filename, HashMap<Integer, LinkedList<CustomChord>> chords) throws Exception {
 		ChordsList list = new ChordsList();
 		chords.forEach((number, chordsList) -> {
 			chordsList.forEach(chord -> list.addChord(chord));
 		});
 		Serializer serializer = new Persister();
-		File file = new File(filename);
+		OutputStream file = new FileOutputStream(filename);
 
 		serializer.write(list, file);
-	}
+		file.close();
+	}*/
 
+	/**
+	 * Save custom chord.
+	 *
+	 * @param cc
+	 *            the cc
+	 * @throws Exception
+	 *             the exception
+	 */
 	public static void saveCustomChord(CustomChord cc) throws Exception {
-		System.out.println("save " + usersChords);
 		if (usersChords.containsKey(cc.getStructure().size() + 1))
 			usersChords.get(cc.getStructure().size() + 1).add(cc);
 		else {
@@ -85,6 +157,19 @@ public class CustomChordDao {
 		serializeChords(usersChords, CUSTOM_CHORDS_FILENAME);
 	}
 
+	/**
+	 * Creates the custom chord.
+	 *
+	 * @param name
+	 *            the name
+	 * @param intervals
+	 *            the intervals
+	 * @param hints
+	 *            the hints
+	 * @param hasInversions
+	 *            the has inversions
+	 * @return the custom chord
+	 *//*
 	public static CustomChord createCustomChord(String name, Intervals intervals, String hints, boolean hasInversions) {
 		CustomChord ch = new CustomChord();
 		ch.setName(name);
@@ -95,10 +180,17 @@ public class CustomChordDao {
 		ch.setHints(hints);
 		ch.setHasInversions(hasInversions);
 		return ch;
-	}
+	}*/
 
+	/**
+	 * Removes the custom chord.
+	 *
+	 * @param chord
+	 *            the chord
+	 * @throws Exception
+	 *             the exception
+	 */
 	public static void removeCustomChord(CustomChord chord) throws Exception {
-		System.out.println(usersChords);
 		if (usersChords.containsKey(chord.getStructure().size() + 1)) {
 			usersChords.get(chord.getStructure().size() + 1).remove(chord);
 			serializeChords(usersChords, CUSTOM_CHORDS_FILENAME);
@@ -106,18 +198,26 @@ public class CustomChordDao {
 
 	}
 
+	/**
+	 * Update chord hints.
+	 *
+	 * @param chord
+	 *            the chord
+	 * @throws Exception
+	 *             the exception
+	 */
 	public static void updateChordHints(CustomChord chord) throws Exception {
 		int size = chord.getStructure().size() + 1;
 		if (chord.isCustom()) {
 			usersChords.get(size).forEach(l -> {
-				if (l.getName().equals(chord.getName())){
+				if (l.getName().equals(chord.getName())) {
 					l.setHints(chord.getHints());
 				}
 			});
 			serializeChords(usersChords, CUSTOM_CHORDS_FILENAME);
 		} else {
 			defChords.get(size).forEach(l -> {
-				if (l.getName().equals(chord.getName())){
+				if (l.getName().equals(chord.getName())) {
 					l.setHints(chord.getHints());
 				}
 			});
@@ -125,6 +225,16 @@ public class CustomChordDao {
 		}
 	}
 
+	/**
+	 * Serialize chords.
+	 *
+	 * @param map
+	 *            the map
+	 * @param fileName
+	 *            the file name
+	 * @throws Exception
+	 *             the exception
+	 */
 	private static void serializeChords(HashMap<Integer, LinkedList<CustomChord>> map, String fileName)
 			throws Exception {
 		ChordsList list = new ChordsList();
@@ -133,22 +243,11 @@ public class CustomChordDao {
 		});
 		Serializer serializer = new Persister();
 
-		File file = new File(fileName);
+		OutputStream file = new FileOutputStream(fileName);
 		serializer.write(list, file);
+		file.close();
 	}
 
-	/*
-	 * public static void main(String[] args) throws Exception { ChordsList list
-	 * = new ChordsList(); Chord.chordMap.forEach((name, intervals) -> {
-	 * System.out.println(name + ": " + intervals);
-	 * list.addChord(createCustomChord(name, intervals, "", true)); });
-	 * Serializer serializer = new Persister(); File file = new
-	 * File("test.xml");
-	 *
-	 * serializer.write(list, file);
-	 *
-	 * }
-	 */
 }
 
 @Root

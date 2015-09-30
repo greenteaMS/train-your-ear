@@ -1,54 +1,73 @@
+/*
+ * @author Maria Sotor
+ * @date September 2015
+ * @version 1.2
+ */
 package mary.train.your.ear.controller.dialog;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import org.apache.logging.log4j.LogManager;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import mary.train.your.ear.controller.AbstractController;
-import mary.train.your.ear.model.DataManager;
+import mary.train.your.ear.StringConstants;
+import mary.train.your.ear.model.StructuresManager;
 import mary.train.your.ear.model.structures.CustomChord;
 
-public class ManageChordHintsPopupController extends AbstractController {
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ManageChordHintsPopupController.
+ */
+public class ManageChordHintsPopupController extends AbstractPopupController {
+
+
+	/** The chord name. */
 	@FXML
 	private Label chordName;
+
+	/** The chord hints. */
 	@FXML
 	private TextField chordHints;
+
+	/** The status label. */
 	@FXML
 	private Label statusLabel;
+
+	/** The save hints. */
 	@FXML
 	private Button saveHints;
 
+	/** The chord. */
 	private CustomChord chord;
 
-	// Event Listener on Button[#saveHints].onAction
+	/**
+	 * Instantiates a new manage chord hints popup controller.
+	 */
+	public ManageChordHintsPopupController() {
+		LOG = LogManager.getLogger(getClass());
+	}
+
+	/**
+	 * Save hints.
+	 *
+	 * @param event the event
+	 */
 	@FXML
 	public void saveHints(ActionEvent event) {
 		chord.setHints(chordHints.getText());
-		if (DataManager.saveChordHints(chord))
-			statusLabel.setText("Updating chord hints succeeded");
-		else statusLabel.setText("Updating chord hints failed");
+		if (StructuresManager.saveChordHints(chord))
+			statusLabel.setText(StringConstants.SL_UPDATING_CHORD_HINTS_SUCCEEDED);
+		else
+			statusLabel.setText(StringConstants.SL_UPDATING_CHORD_HINTS_FAILED);
 	}
 
-	// Event Listener on Button.onAction
-	@FXML
-	public void closeWindow(ActionEvent event) {
-		Node source = (Node) event.getSource();
-		Stage stage = (Stage) source.getScene().getWindow();
-		stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
-	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-
-	}
-
+	/**
+	 * Sets the chord.
+	 *
+	 * @param chord the new chord
+	 */
 	public void setChord(CustomChord chord) {
 		this.chord = chord;
 		chordName.setText(chord.getName());

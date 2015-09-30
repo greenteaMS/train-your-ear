@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox prefWidth="840.0" styleClass="settingsPaneWithBackground" stylesheets="@../resources/application.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mary.train.your.ear.controller.dialog.CurrentUserStatisticsPopupController">
+	<children>
+		<HBox prefHeight="600.0" prefWidth="800.0" styleClass="settingsPaneWithBackground" stylesheets="@../resources/application.css">
+			<children>
+				<ListView fx:id="datesListView" prefHeight="460.0" prefWidth="100.0" styleClass="answerListView" stylesheets="@../resources/application.css">
+					<HBox.margin>
+						<Insets bottom="20.0" left="20.0" right="20.0" top="51.0" />
+					</HBox.margin>
+				</ListView>
+				<VBox prefHeight="560.0" prefWidth="640.0" spacing="5.0" styleClass="settingsPaneWithBackground" stylesheets="@../resources/application.css">
+					<HBox.margin>
+						<Insets bottom="20.0" right="20.0" top="20.0" />
+					</HBox.margin>
+					<children>
+						<HBox prefHeight="26.0" prefWidth="440.0" spacing="2.0">
+							<children>
+								<ToggleButton fx:id="intervalsStatsToggle" mnemonicParsing="false" onAction="#showIntervalStats" styleClass="statisticsToggle" stylesheets="@../resources/buttons.css" text="Interwały" />
+								<ToggleButton fx:id="chordsStatsToggle" mnemonicParsing="false" onAction="#showChordsStats" styleClass="statisticsToggle" stylesheets="@../resources/buttons.css" text="Akordy" />
+								<ToggleButton fx:id="comparatorToggle" mnemonicParsing="false" onAction="#showComparatorStats" styleClass="statisticsToggle" stylesheets="@../resources/buttons.css" text="Porównania" />
+							</children>
+						</HBox>
+						<HBox prefHeight="529.0" prefWidth="600.0" spacing="5.0">
+							<children>
+								<ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="530.0" prefWidth="400.0">
+									<content>
+										<VBox fx:id="itemStatsPane" minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="400.0" styleClass="settingsPaneWithBackground" stylesheets="@../resources/application.css" />
+									</content>
+								</ScrollPane>
+								<VBox fx:id="correctSetStatsPane" prefHeight="500.0" prefWidth="280.0" />
+							</children>
+						</HBox>
+					</children>
+				</VBox>
+			</children>
+		</HBox>
+		<HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" spacing="10.0" styleClass="settingsPaneWithBackground" stylesheets="@../resources/application.css">
+			<children>
+				<Label fx:id="statusLabel" prefHeight="17.0" prefWidth="354.0" styleClass="settingsPaneWithBackground">
+					<HBox.margin>
+						<Insets left="20.0" />
+					</HBox.margin>
+					<stylesheets>
+						<URL value="@../resources/labels.css" />
+						<URL value="@../resources/application.css" />
+					</stylesheets>
+				</Label>
+				<HBox alignment="CENTER" spacing="20.0">
+					<children>
+						<Button fx:id="clearCurrentButton" mnemonicParsing="false" onAction="#clearCurrentStats" styleClass="addChordButton" stylesheets="@../resources/buttons.css" text="Wyczyść akutalne statystyki" />
+						<Button fx:id="deleteSelected" mnemonicParsing="false" onAction="#deleteSelectedStats" styleClass="addChordButton" stylesheets="@../resources/buttons.css" text="Usuń zaznaczone" />
+						<Button fx:id="close" mnemonicParsing="false" onAction="#closeWindow" styleClass="addChordButton" stylesheets="@../resources/buttons.css" text="Zamknij" />
+					</children>
+				</HBox>
+			</children>
+			<VBox.margin>
+				<Insets bottom="5.0" />
+			</VBox.margin>
+		</HBox>
+	</children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>

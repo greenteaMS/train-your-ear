@@ -1,58 +1,115 @@
+/*
+ * @author Maria Sotor
+ * @date September 2015
+ * @version 1.2
+ */
 package mary.train.your.ear.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.apache.logging.log4j.LogManager;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
-import mary.train.your.ear.model.TaskPlayer;
-import mary.train.your.ear.model.TaskResponse;
+import mary.train.your.ear.model.player.TaskPlayer;
+import mary.train.your.ear.model.player.response.TaskResponse;
 import mary.train.your.ear.observers.PlayerPaneObserver;
 import mary.train.your.ear.observers.SettingsChangedObserver;
 import mary.train.your.ear.observers.TaskChangeObserver;
+import mary.train.your.ear.observers.UserChangeObserver;
 
-public class PlayerPaneController extends AbstractController implements SettingsChangedObserver, TaskChangeObserver {
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PlayerPaneController.
+ */
+public class PlayerPaneController extends AbstractController
+		implements SettingsChangedObserver, TaskChangeObserver, UserChangeObserver {
+
+	/** The player pane. */
 	@FXML
 	private VBox playerPane;
+
+	/** The play button. */
 	@FXML
 	private Button playButton;
+
+	/** The repeat button. */
 	@FXML
 	private Button repeatButton;
+
+	/** The show answer button. */
 	@FXML
 	private Button showAnswerButton;
 
+	boolean busy = false;
+
+	/**
+	 * The Enum PlayAction.
+	 */
 	private enum PlayAction {
-		Play, Repeat, Show
+
+		/** The Play. */
+		Play, /** The Repeat. */
+		Repeat, /** The Show. */
+		Show
 	}
 
+	/** The response. */
 	private TaskResponse response;
-	@FXML
-	CheckBox autoPlay;
 
+	/** The tuner task. */
+	private boolean tunerTask = false;
+
+	/**
+	 * Instantiates a new player pane controller.
+	 */
+	public PlayerPaneController() {
+		LOG = LogManager.getLogger(getClass());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * mary.train.your.ear.controller.AbstractController#initialize(java.net.
+	 * URL, java.util.ResourceBundle)
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println(getClass() + " controller initialized");
+		logInitializing(getClass());
 
-		playButton.setOnAction((action) -> {
-			response = TaskPlayer.getInstance().play();
-			repeatButton.setDisable(false);
-			showAnswerButton.setDisable(false);
-			notify(PlayAction.Play);
-		});
+		showAnswerButton.setOnAction((action) -> notify(PlayAction.Show));
 
-		repeatButton.setOnAction((action) -> {
-			TaskPlayer.getInstance().repeat();
-			notify(PlayAction.Repeat);
-		});
-
-		showAnswerButton.setOnAction((action) -> {
-			TaskPlayer.getInstance().show();
-			notify(PlayAction.Show);
-		});
+		logInit(getClass());
 	}
 
+	public void play() {
+		response = TaskPlayer.getInstance().play();
+		if (response == null)
+			return;
+		if (!tunerTask) {
+			repeatButton.setDisable(false);
+			showAnswerButton.setDisable(false);
+		}
+
+		notify(PlayAction.Play);
+
+	}
+
+	public void repeat() {
+		TaskPlayer.getInstance().repeat();
+		notify(PlayAction.Repeat);
+
+	}
+
+	/**
+	 * Notify.
+	 *
+	 * @param action
+	 *            the action
+	 */
 	private void notify(PlayAction action) {
 		observers.stream().filter(ac -> ac instanceof PlayerPaneObserver).forEach(obs -> {
 			switch (action) {
@@ -69,18 +126,38 @@ public class PlayerPaneController extends AbstractController implements Settings
 		});
 	}
 
-	public void updateAutoPlaySetting() {
-		TaskPlayer.getInstance().setAutoPlay(autoPlay.isSelected());
-	}
-
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * mary.train.your.ear.observers.SettingsChangedObserver#onSettingsChanged()
+	 */
 	@Override
 	public void onSettingsChanged() {
 		repeatButton.setDisable(true);
 		showAnswerButton.setDisable(true);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * mary.train.your.ear.observers.TaskChangeObserver#onTaskChange(boolean)
+	 */
 	@Override
-	public void onTaskChange() {
+	public void onTaskChange(boolean tunerTask) {
+		repeatButton.setDisable(true);
+		showAnswerButton.setDisable(true);
+		this.tunerTask = tunerTask;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see mary.train.your.ear.observers.UserChangeObserver#onUserChange()
+	 */
+	@Override
+	public void onUserChange() {
 		repeatButton.setDisable(true);
 		showAnswerButton.setDisable(true);
 	}
